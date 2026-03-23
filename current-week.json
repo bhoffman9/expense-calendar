@@ -1,0 +1,35 @@
+{
+  "week": "Mar 23-29, 2026",
+  "updated": "2026-03-23T10:00:00Z",
+  "accounts": [
+    { "name": "Capacity Express 1", "last4": "1927", "balance": 38734.68, "group": "Operating" },
+    { "name": "Show Freight Inc", "last4": "3028", "balance": 48795.80, "group": "Operating" },
+    { "name": "Show Freight TN", "last4": "0870", "balance": 27792.12, "group": "Operating" },
+    { "name": "J and A", "last4": "4842", "balance": 1335.71, "group": "Admin" },
+    { "name": "PLAT BUS CHECKING", "last4": "7165", "balance": 1063.88, "group": "Other" },
+    { "name": "PLAT BUS CHECKING", "last4": "7173", "balance": 41.63, "group": "Other" },
+    { "name": "Payroll", "last4": "0703", "balance": 1004.55, "group": "Payroll" },
+    { "name": "PLAT BUS CHECKING (CE East)", "last4": "6053", "balance": 4907.63, "group": "CE East" },
+    { "name": "DockIt LLC", "last4": "1508", "balance": 90.69, "group": "Other" },
+    { "name": "Nanas Pool Fencing", "last4": "5623", "balance": 5.70, "group": "Other" },
+    { "name": "American Express Savings", "last4": "—", "balance": 23271.07, "group": "Savings" }
+  ],
+  "payments": [
+    { "day": "Sun 22", "vendor": "NV Energy", "amount": 615.00, "status": "paid", "cat": "Utilities" },
+    { "day": "Mon 23", "vendor": "Ascend TMS", "amount": 1085.00, "status": "due", "cat": "Software" },
+    { "day": "Mon 23", "vendor": "Starlink", "amount": 290.00, "status": "due", "cat": "Utilities" },
+    { "day": "Tue 24", "vendor": "WEX (EFS)", "amount": 15000.00, "status": "due", "cat": "Fuel" },
+    { "day": "Wed 25", "vendor": "TEC Equipment", "amount": 28000.00, "status": "due", "cat": "Truck Lease" },
+    { "day": "Wed 25", "vendor": "Descartes", "amount": 570.00, "status": "due", "cat": "Software" },
+    { "day": "Wed 25", "vendor": "Colombia Payroll", "amount": 1850.00, "status": "due", "cat": "CE East" },
+    { "day": "Wed 25", "vendor": "DAT Solutions", "amount": 2280.00, "status": "due", "cat": "Software" },
+    { "day": "Wed 25", "vendor": "Lendr", "amount": 2658.73, "status": "due", "cat": "Loan" },
+    { "day": "Fri 27", "vendor": "Office Payroll", "amount": 30000.00, "status": "due", "cat": "Payroll" },
+    { "day": "Fri 27", "vendor": "Driver Payroll", "amount": 50000.00, "status": "due", "cat": "Payroll" },
+    { "day": "Fri 27", "vendor": "CloneOps", "amount": 500.00, "status": "due", "cat": "Software" },
+    { "day": "Fri 27", "vendor": "WEX (fuel)", "amount": 4000.00, "status": "due", "cat": "Fuel" },
+    { "day": "Sat 28", "vendor": "NIS General Liability", "amount": 427.00, "status": "due", "cat": "Insurance" },
+    { "day": "Sat 28", "vendor": "Carrier Risk Solutions", "amount": 1000.00, "status": "due", "cat": "Insurance" },
+    { "day": "Sat 28", "vendor": "Motorola", "amount": 2199.50, "status": "due", "cat": "Equipment" }
+  ]
+}
