@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Calendar – WORK – Show Freight Inc</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header">
+    <h1>Expense Calendar – WORK</h1>
+    <div class="header-actions">
+      <button class="btn" onclick="openUploadModal()">Upload Statement</button>
+      <button class="btn btn-primary" onclick="openModal('recurring')">+ Add Expense</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="calendar-section">
+      <div class="calendar-nav">
+        <button class="nav-btn" onclick="changeMonth(-1)">&larr;</button>
+        <h2 id="monthTitle"></h2>
+        <button class="nav-btn" onclick="changeMonth(1)">&rarr;</button>
+        <button class="btn btn-sm" onclick="goToday()" style="margin-left:8px">Today</button>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+
+    <div class="sidebar">
+      <!-- Summary -->
+      <div class="sidebar-section">
+        <h3>Take-Home Summary</h3>
+        <div class="summary-cards">
+          <div class="summary-card">
+            <div class="label">Weekly</div>
+            <div class="amount positive" id="weeklyIncome">$0</div>
+          </div>
+          <div class="summary-card">
+            <div class="label">Monthly</div>
+            <div class="amount positive" id="monthlyIncome">$0</div>
+            <div class="breakdown" id="monthlyBreakdown"></div>
+          </div>
+          <div class="summary-card">
+            <div class="label">Yearly</div>
+            <div class="amount positive" id="yearlyIncome">$0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Net for month -->
+      <div class="sidebar-section">
+        <h3>This Month</h3>
+        <div class="summary-cards">
+          <div class="summary-card">
+            <div class="label">Income</div>
+            <div class="amount positive" id="monthIncome">$0</div>
+          </div>
+          <div class="summary-card">
+            <div class="label">Expenses</div>
+            <div class="amount negative" id="monthExpenses">$0</div>
+          </div>
+          <div class="summary-card">
+            <div class="label">Net</div>
+            <div class="amount" id="monthNet">$0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Income Sources -->
+      <div class="sidebar-section">
+        <h3>Income Sources</h3>
+        <div class="item-list" id="incomeList"></div>
+        <button class="btn add-btn" onclick="openModal('income')">+ Add Income</button>
+      </div>
+
+      <!-- Recurring Charges -->
+      <div class="sidebar-section">
+        <h3>Recurring Charges</h3>
+        <div class="item-list" id="recurringList"></div>
+        <button class="btn add-btn" onclick="openModal('recurring')">+ Add Recurring</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <h3 id="modalTitle">Add Item</h3>
+      <form id="itemForm" onsubmit="saveItem(event)">
+        <input type="hidden" id="itemId">
+        <input type="hidden" id="itemType">
+
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="itemName" required placeholder="e.g. Netflix, Rent, Electric">
+        </div>
+
+        <div class="form-group">
+          <label>Amount ($)</label>
+          <input type="number" id="itemAmount" step="0.01" required placeholder="0.00">
+        </div>
+
+        <div class="form-group">
+          <label>Frequency</label>
+          <select id="itemFrequency">
+            <option value="monthly">Monthly</option>
+            <option value="weekly">Weekly</option>
+            <option value="biweekly">Bi-weekly</option>
+            <option value="yearly">Yearly</option>
+            <option value="one-time">One-time</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="dayOfMonthGroup">
+          <label>Day of Month</label>
+          <input type="number" id="itemDayOfMonth" min="1" max="31" placeholder="1-31">
+        </div>
+
+        <div class="form-group" id="dayOfWeekGroup" style="display:none">
+          <label>Day of Week</label>
+          <select id="itemDayOfWeek">
+            <option value="0">Sunday</option>
+            <option value="1">Monday</option>
+            <option value="2">Tuesday</option>
+            <option value="3">Wednesday</option>
+            <option value="4">Thursday</option>
+            <option value="5">Friday</option>
+            <option value="6">Saturday</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="dateGroup" style="display:none">
+          <label>Date</label>
+          <input type="date" id="itemDate">
+        </div>
+
+        <div class="form-group" id="categoryGroup">
+          <label>Category</label>
+          <select id="itemCategory">
+            <option value="Housing">Housing</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Subscriptions">Subscriptions</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Dining">Dining</option>
+            <option value="Gas">Gas</option>
+            <option value="Auto">Auto</option>
+            <option value="Phone">Phone</option>
+            <option value="Internet">Internet</option>
+            <option value="Health">Health</option>
+            <option value="Transfer">Transfer</option>
+            <option value="Income">Income</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Upload Modal -->
+  <div class="modal-overlay" id="uploadOverlay" onclick="closeUploadModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <h3>Upload Bank Statement</h3>
+      <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+        <div style="font-size:32px;margin-bottom:8px">&#128196;</div>
+        <strong>Click to upload PDF</strong>
+        <p>Bank statement will be parsed for transactions</p>
+        <input type="file" id="fileInput" accept=".pdf" onchange="uploadFile(event)">
+      </div>
+      <div id="uploadStatus" style="margin-top:12px;font-size:13px;color:var(--text-dim)"></div>
+      <div class="parsed-results" id="parsedResults"></div>
+      <div class="modal-actions">
+        <button class="btn" onclick="closeUploadModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day Detail Popup -->
+  <div class="day-detail" id="dayDetail">
+    <h4 id="dayDetailTitle"></h4>
+    <div id="dayDetailItems"></div>
+    <div class="day-detail-total" id="dayDetailTotal"></div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
